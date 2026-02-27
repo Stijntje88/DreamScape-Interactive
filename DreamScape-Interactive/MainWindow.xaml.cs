@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DreamScape_Interactive.Data;
+using DreamScape_Interactive.View;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -26,6 +28,12 @@ namespace DreamScape_Interactive
         public MainWindow()
         {
             InitializeComponent();
+
+            using var db = new AppDbContext();
+            db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
+
+            contentFrame.Navigate(typeof(HomePage));
         }
     }
 }
